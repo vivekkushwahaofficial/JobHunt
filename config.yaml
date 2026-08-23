@@ -1,0 +1,242 @@
+# JobHunt configuration
+# Customized for Vivek
+#
+# Profile:
+# - B.Tech CSE
+# - Graduating in 2027
+# - Entry-level candidate
+# - Java / Spring Boot / Backend focused
+# - Also open to Full-Stack roles
+#
+# Goal:
+# Find relevant internship, graduate, trainee, junior and
+# entry-level software engineering opportunities.
+
+filters:
+
+  # ============================================================
+  # JOB TITLES WE WANT
+  # ============================================================
+  include_titles:
+
+    # ----------------------------------------------------------
+    # Software Engineering
+    # ----------------------------------------------------------
+    - '\bsoftware\s+engineer\b'
+    - '\bsoftware\s+developer\b'
+    - '\bsoftware\s+development\s+engineer\b'
+    - '\bsde\b'
+    - '\bsde\s*-?\s*(i{1,3}|[123])\b'
+
+    # ----------------------------------------------------------
+    # Backend
+    # ----------------------------------------------------------
+    - '\bbackend\s+engineer\b'
+    - '\bbackend\s+developer\b'
+    - '\bback-end\s+engineer\b'
+    - '\bback-end\s+developer\b'
+    - '\b(engineer|developer)\b.*\bbackend\b'
+    - '\b(engineer|developer)\b.*\bback-end\b'
+
+    # ----------------------------------------------------------
+    # Java
+    # ----------------------------------------------------------
+    - '\bjava\b.*\b(engineer|developer)\b'
+    - '\b(engineer|developer)\b.*\bjava\b'
+
+    # ----------------------------------------------------------
+    # Full Stack
+    # ----------------------------------------------------------
+    - '\bfull[\s-]?stack\s+engineer\b'
+    - '\bfull[\s-]?stack\s+developer\b'
+    - '\b(engineer|developer)\b.*\bfull[\s-]?stack\b'
+
+    # ----------------------------------------------------------
+    # Associate / Entry-Level
+    # ----------------------------------------------------------
+    - '\bassociate\s+software\s+engineer\b'
+    - '\bassociate\s+software\s+developer\b'
+    - '\bassociate\s+engineer\b'
+    - '\bassociate\s+developer\b'
+    - '\bentry[\s-]?level\s+software\s+engineer\b'
+    - '\bentry[\s-]?level\s+software\s+developer\b'
+    - '\bentry[\s-]?level\s+backend\s+engineer\b'
+    - '\bentry[\s-]?level\s+backend\s+developer\b'
+
+    # ----------------------------------------------------------
+    # Junior
+    # ----------------------------------------------------------
+    - '\bjunior\s+software\s+engineer\b'
+    - '\bjunior\s+software\s+developer\b'
+    - '\bjunior\s+backend\s+engineer\b'
+    - '\bjunior\s+backend\s+developer\b'
+    - '\bjunior\s+java\s+developer\b'
+    - '\bjunior\s+java\s+engineer\b'
+    - '\bjunior\s+full[\s-]?stack\s+developer\b'
+    - '\bjunior\s+full[\s-]?stack\s+engineer\b'
+
+    # ----------------------------------------------------------
+    # Software Engineer I / Level 1
+    # ----------------------------------------------------------
+    - '\bsoftware\s+engineer\s+i\b'
+    - '\bsoftware\s+engineer\s+1\b'
+    - '\bsoftware\s+developer\s+i\b'
+    - '\bsoftware\s+developer\s+1\b'
+
+    # ----------------------------------------------------------
+    # Graduate / Trainee
+    # ----------------------------------------------------------
+    - '\bgraduate\s+software\s+engineer\b'
+    - '\bgraduate\s+software\s+developer\b'
+    - '\bgraduate\s+engineer\b'
+    - '\bgraduate\s+developer\b'
+    - '\bgraduate\s+engineer\s+trainee\b'
+    - '\bgraduate\s+trainee\b'
+    - '\btrainee\s+software\s+engineer\b'
+    - '\btrainee\s+software\s+developer\b'
+    - '\btrainee\s+engineer\b'
+    - '\btrainee\s+developer\b'
+
+    # ----------------------------------------------------------
+    # Internship
+    # ----------------------------------------------------------
+    - '\bsoftware\s+engineering\s+intern\b'
+    - '\bsoftware\s+engineer\s+intern\b'
+    - '\bsoftware\s+developer\s+intern\b'
+    - '\bsoftware\s+development\s+intern\b'
+    - '\bbackend\s+engineer\s+intern\b'
+    - '\bbackend\s+developer\s+intern\b'
+    - '\bjava\s+engineer\s+intern\b'
+    - '\bjava\s+developer\s+intern\b'
+    - '\bfull[\s-]?stack\s+engineer\s+intern\b'
+    - '\bfull[\s-]?stack\s+developer\s+intern\b'
+    - '\bengineering\s+intern\b'
+    - '\bsoftware\s+intern\b'
+    - '\bintern\b'
+
+    # ----------------------------------------------------------
+    # Related backend/platform roles
+    # ----------------------------------------------------------
+    - '\bplatform\s+engineer\b'
+    - '\bplatform\s+developer\b'
+    - '\bcloud\s+engineer\b'
+    - '\bcloud\s+developer\b'
+    - '\bsite\s+reliability\s+engineer\b'
+    - '\bsre\b'
+
+
+  # ============================================================
+  # JOB TITLES WE DO NOT WANT
+  # ============================================================
+  exclude_titles:
+
+    # ----------------------------------------------------------
+    # Too senior
+    # ----------------------------------------------------------
+    - '\b(senior|sr\.?)\b'
+    - '\bstaff\b'
+    - '\bprincipal\b'
+    - '\bdistinguished\b'
+    - '\bfellow\b'
+    - '\blead\b'
+    - '\btech\s+lead\b'
+    - '\bteam\s+lead\b'
+    - '\barchitect\b'
+
+    # ----------------------------------------------------------
+    # Management
+    # ----------------------------------------------------------
+    - '\bmanager\b'
+    - '\bmanagement\b'
+    - '\bdirector\b'
+    - '\bvp\b'
+    - '\bvice\s+president\b'
+    - '\bhead\s+of\b'
+    - '\bchief\b'
+    - '\bcto\b'
+
+    # ----------------------------------------------------------
+    # Non-technical / unrelated
+    # ----------------------------------------------------------
+    - '\bsales\b'
+    - '\baccount\s+executive\b'
+    - '\bmarketing\b'
+    - '\brecruit(ment|er)?\b'
+    - '\bsupport\b'
+    - '\bcustomer\s+success\b'
+    - '\bdesigner\b'
+
+    # ----------------------------------------------------------
+    # Mobile / game development
+    # ----------------------------------------------------------
+    - '\bios\s+(engineer|developer)\b'
+    - '\bandroid\s+(engineer|developer)\b'
+    - '\bmobile\s+(engineer|developer)\b'
+    - '\bgame\s+(engineer|developer)\b'
+
+    # ----------------------------------------------------------
+    # Research/data-science roles
+    # ----------------------------------------------------------
+    - '\bdata\s+scientist\b'
+    - '\bmachine\s+learning\s+scientist\b'
+    - '\bresearch\s+scientist\b'
+
+
+  # ============================================================
+  # LOCATIONS
+  # ============================================================
+  #
+  # India-focused.
+  # Remote jobs are also allowed.
+  #
+  locations:
+    - india
+    - bangalore
+    - bengaluru
+    - hyderabad
+    - pune
+    - mumbai
+    - delhi
+    - gurgaon
+    - gurugram
+    - noida
+    - chennai
+    - kolkata
+    - ahmedabad
+    - bhopal
+
+  allow_remote: true
+
+  # Consider jobs from the last 30 days.
+  max_age_days: 30
+
+
+# ==============================================================
+# LLM STAGES
+# ==============================================================
+
+# Jobs processed per Gemini screening batch.
+screen_batch_size: 8
+
+# Maximum job-description characters used during screening.
+screen_jd_chars: 1400
+
+# Maximum job-description characters used for drafting.
+draft_jd_chars: 6000
+
+# Minimum score required for a job to enter the digest.
+score_threshold: 7.0
+
+# Maximum recommended jobs per digest.
+max_per_digest: 5
+
+
+# ==============================================================
+# FILE PATHS
+# ==============================================================
+
+companies_file: companies.yaml
+profile_file: profile.json
+seen_file: seen.json
+digest_file: out/digest.html
+tracker_csv: out/tracker.csv

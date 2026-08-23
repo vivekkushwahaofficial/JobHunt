@@ -1,0 +1,38 @@
+# Job boards selected for Vivek
+#
+# Profile:
+# - B.Tech CSE
+# - Graduation: 2027
+# - Entry-level / internship candidate
+# - Java + Spring Boot + Backend
+# - Full-stack experience
+# - India / Remote preference
+
+companies:
+  # ------------------------------------------------------------
+  # Strong entry-level / India / remote relevance
+  # ------------------------------------------------------------
+
+  - { ats: lever, slug: gohighlevel, name: HighLevel }
+  - { ats: lever, slug: shopback-2, name: ShopBack }
+  - { ats: lever, slug: geocomply-2, name: GeoComply }
+  - { ats: lever, slug: drivetrain, name: Drivetrain }
+
+  # ------------------------------------------------------------
+  # AI / developer-product companies
+  # Good alignment with backend + AI direction
+  # ------------------------------------------------------------
+
+  - { ats: ashby, slug: openai, name: OpenAI }
+  - { ats: ashby, slug: cohere, name: Cohere }
+  - { ats: ashby, slug: notion, name: Notion }
+  - { ats: ashby, slug: super.com, name: Super.com }
+
+  # ------------------------------------------------------------
+  # Additional software companies
+  # ------------------------------------------------------------
+
+  - { ats: greenhouse, slug: cloudflare, name: Cloudflare }
+  - { ats: greenhouse, slug: databricks, name: Databricks }
+  - { ats: greenhouse, slug: stripe, name: Stripe }
+  - { ats: greenhouse, slug: reddit, name: Reddit }
