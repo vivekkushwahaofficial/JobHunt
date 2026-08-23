@@ -6,6 +6,15 @@ JobHunt reads public ATS job boards, filters obvious mismatches before using an 
 
 > **It never submits an application.** You review the job, edit the generated material, and apply yourself.
 
+## Acknowledgement
+
+This project is based on the original **PWP JobHunt** project by **Pratush Narayan**.
+
+Original repository:
+https://github.com/perryvegehan/PWP_jobhunt
+
+I created this repository as a personalized version of the project, adapting the configuration, job filters, Gemini setup, company targets, profile matching, Gmail delivery, and GitHub Actions automation for my own 2027 software-engineering job search.
+
 ```text
 ATS job boards
       ↓
