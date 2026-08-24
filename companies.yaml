@@ -36,3 +36,35 @@ companies:
   - { ats: greenhouse, slug: databricks, name: Databricks }
   - { ats: greenhouse, slug: stripe, name: Stripe }
   - { ats: greenhouse, slug: reddit, name: Reddit }
+
+  # ------------------------------------------------------------
+  # Expansion: backend / AI / software targets
+  # These use ATS types already supported by JobHunt.
+  # ------------------------------------------------------------
+
+  - { ats: lever, slug: levelai, name: Level AI }
+  - { ats: greenhouse, slug: singlestore, name: SingleStore }
+  - { ats: lever, slug: resilinc, name: Resilinc }
+  - { ats: lever, slug: zimperium, name: Zimperium }
+  - { ats: lever, slug: 3pillarglobal, name: 3Pillar Global }
+
+  # ------------------------------------------------------------
+  # Ashby expansion
+  # AI / backend / software opportunities
+  # ------------------------------------------------------------
+
+  - { ats: ashby, slug: ema, name: Ema }
+  - { ats: ashby, slug: brooklyn-health, name: Brooklyn Health }
+  - { ats: ashby, slug: savvymoney, name: SavvyMoney }
+
+
+# ------------------------------------------------------------
+# SmartRecruiters service / consulting companies
+# Location policy:
+# - India jobs
+# - Globally eligible remote jobs
+# ------------------------------------------------------------
+
+smartrecruiters:
+  - { slug: TechMahindraLtd1, name: Tech Mahindra }
+  - { slug: Nagarro1, name: Nagarro }
