@@ -56,3 +56,15 @@ companies:
   - { ats: ashby, slug: ema, name: Ema }
   - { ats: ashby, slug: brooklyn-health, name: Brooklyn Health }
   - { ats: ashby, slug: savvymoney, name: SavvyMoney }
+
+
+# ------------------------------------------------------------
+# SmartRecruiters service / consulting companies
+# Location policy:
+# - India jobs
+# - Globally eligible remote jobs
+# ------------------------------------------------------------
+
+smartrecruiters:
+  - { slug: TechMahindraLtd1, name: Tech Mahindra }
+  - { slug: Nagarro1, name: Nagarro }
