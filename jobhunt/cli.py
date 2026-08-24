@@ -16,6 +16,7 @@ import yaml
 from . import digest as digest_mod
 from . import llm, mailer
 from .fetch import fetch_all
+from .smartrecruiters import fetch_smartrecruiters_all
 from .mock import fetch_all_mock
 from .prefilter import prefilter
 from .providers import LLMError, resolve
@@ -104,6 +105,19 @@ def cmd_run(args) -> int:
             print("companies.yaml has no entries")
             return 1
         jobs = fetch_all(companies)
+
+        # Additive service-company sources. Existing ATS fetching above
+        # remains unchanged; service-source failures return [].
+        smartrecruiters = [
+            {"slug": "TechMahindraLtd1", "name": "Tech Mahindra"},
+            {"slug": "Nagarro1", "name": "Nagarro"},
+        ]
+        service_jobs = fetch_smartrecruiters_all(
+            smartrecruiters,
+            location_mode="india_or_remote",
+        )
+        jobs.extend(service_jobs)
+
     scanned = len(jobs)
     if not scanned:
         print("no postings fetched — check the slugs in companies.yaml")
