@@ -225,7 +225,7 @@ screen_jd_chars: 1400
 draft_jd_chars: 6000
 
 # Minimum score required for a job to enter the digest.
-score_threshold: 7.0
+score_threshold: 6.0
 
 # Maximum recommended jobs per digest.
 max_per_digest: 6

@@ -140,7 +140,7 @@ filters:
   allow_remote: true
   max_age_days: 30
 
-score_threshold: 7.0
+score_threshold: 6.0
 max_per_digest: 6
 ```
 
