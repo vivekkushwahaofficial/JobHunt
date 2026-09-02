@@ -3,6 +3,7 @@
 The agent never submits an application. It finds, filters, ranks and drafts.
 A human reads the digest, edits the note, and presses submit.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -26,15 +27,18 @@ ROOT = Path(__file__).resolve().parent.parent
 
 
 def _load_env(path: str = ".env") -> None:
-    """Minimal .env reader so there is no python-dotenv dependency."""
-    p = Path(path)
+    """Load environment variables from the project-root .env file."""
+    p = ROOT / path
+
     if not p.exists():
         return
+
     for line in p.read_text(encoding="utf-8").splitlines():
         line = line.strip()
+
         if line and not line.startswith("#") and "=" in line:
-            k, v = line.split("=", 1)
-            os.environ.setdefault(k.strip(), v.strip().strip('"').strip("'"))
+            key, value = line.split("=", 1)
+            os.environ[key.strip()] = value.strip().strip('"').strip("'")
 
 
 def _cfg(path: str | Path) -> dict:
@@ -72,15 +76,20 @@ def cmd_profile(args) -> int:
         print(f"reading {src.name} via {provider.name}/{model} ...")
         profile = llm.build_profile(
             resume_bytes=src.read_bytes() if is_pdf else None,
-            resume_text=None if is_pdf else src.read_text(encoding="utf-8", errors="replace"),
-            is_pdf=is_pdf, provider=provider, model=model,
+            resume_text=(
+                None if is_pdf else src.read_text(encoding="utf-8", errors="replace")
+            ),
+            is_pdf=is_pdf,
+            provider=provider,
+            model=model,
         )
     except (LLMError, ValueError) as e:
         print(f"profile extraction failed: {e}")
         return 1
 
-    Path(args.out).write_text(json.dumps(profile, indent=2, ensure_ascii=False),
-                              encoding="utf-8")
+    Path(args.out).write_text(
+        json.dumps(profile, indent=2, ensure_ascii=False), encoding="utf-8"
+    )
     print(f"wrote {args.out}\n")
     print(json.dumps(profile, indent=2, ensure_ascii=False)[:900])
     return 0
@@ -100,7 +109,9 @@ def cmd_run(args) -> int:
     if args.mock:
         jobs = fetch_all_mock()
     else:
-        companies = _cfg(cfg.get("companies_file", "companies.yaml")).get("companies") or []
+        companies = (
+            _cfg(cfg.get("companies_file", "companies.yaml")).get("companies") or []
+        )
         if not companies:
             print("companies.yaml has no entries")
             return 1
@@ -127,11 +138,16 @@ def cmd_run(args) -> int:
     print("\n[2/5] filtering")
     jobs = prefilter(jobs, filters)
     passed_filters = len(jobs)
-    jobs = store.unseen(jobs)
+    recheck_after_days = int(cfg.get("recheck_after_days", 7))
+
+    jobs = store.unseen(
+        jobs,
+        recheck_after_days=recheck_after_days,
+    )
     print(f"  new since last run: {len(jobs)}")
     candidates = len(jobs)
     if args.limit:
-        jobs = jobs[:args.limit]
+        jobs = jobs[: args.limit]
         print(f"  --limit {args.limit} applied")
 
     if not jobs:
@@ -152,23 +168,32 @@ def cmd_run(args) -> int:
             print(f"\n{e}\nNo key? Run with --scorer keyword for an offline dry run.")
             return 1
         print(f"\n[3/5] screening {len(jobs)} jobs via {provider.name}/{model}")
-        llm.screen(jobs, profile,
-                   batch_size=int(cfg.get("screen_batch_size", 8)),
-                   jd_chars=int(cfg.get("screen_jd_chars", 1400)),
-                   provider=provider, model=model)
+        llm.screen(
+            jobs,
+            profile,
+            batch_size=int(cfg.get("screen_batch_size", 8)),
+            jd_chars=int(cfg.get("screen_jd_chars", 1400)),
+            provider=provider,
+            model=model,
+        )
 
     # If every batch failed, the digest would be empty and — worse — we would
     # record these jobs as seen and never show them again. Bail instead.
     if scorer == "llm" and not any(j.score is not None for j in jobs):
-        print("\n! screening scored nothing: every batch failed.\n"
-              "  Not recording these jobs, so the next run retries them.\n"
-              "  Check the warnings above (bad key, rate limit, wrong model id).")
+        print(
+            "\n! screening scored nothing: every batch failed.\n"
+            "  Not recording these jobs, so the next run retries them.\n"
+            "  Check the warnings above (bad key, rate limit, wrong model id)."
+        )
         return 1
 
     threshold = float(cfg.get("score_threshold", 7.0))
     top_n = int(cfg.get("max_per_digest", 5))
-    shortlist = sorted([j for j in jobs if (j.score or 0) >= threshold],
-                       key=lambda j: j.score or 0, reverse=True)[:top_n]
+    shortlist = sorted(
+        [j for j in jobs if (j.score or 0) >= threshold],
+        key=lambda j: j.score or 0,
+        reverse=True,
+    )[:top_n]
     print(f"  {len(shortlist)} scored >= {threshold}")
 
     # ---- 4. draft
@@ -181,9 +206,13 @@ def cmd_run(args) -> int:
         try:
             provider, model = resolve("draft")
             print(f"  via {provider.name}/{model}")
-            llm.draft(shortlist, profile,
-                      jd_chars=int(cfg.get("draft_jd_chars", 6000)),
-                      provider=provider, model=model)
+            llm.draft(
+                shortlist,
+                profile,
+                jd_chars=int(cfg.get("draft_jd_chars", 6000)),
+                provider=provider,
+                model=model,
+            )
         except LLMError as e:
             print(f"  ! drafting unavailable: {e}")
 
@@ -206,8 +235,10 @@ def cmd_run(args) -> int:
     store.record(jobs, emailed=sent)
     csv_path = store.export_csv(cfg.get("tracker_csv", "out/tracker.csv"))
 
-    print(f"\nfunnel: {scanned} scanned -> {passed_filters} passed filters "
-          f"-> {candidates} new -> {len(shortlist)} in digest")
+    print(
+        f"\nfunnel: {scanned} scanned -> {passed_filters} passed filters "
+        f"-> {candidates} new -> {len(shortlist)} in digest"
+    )
     print(f"subject: {subject}")
     print(f"tracker: {store.stats()}  ({csv_path})")
     return 0
@@ -233,20 +264,27 @@ def main(argv=None) -> int:
     _load_env()
     p = argparse.ArgumentParser(
         prog="jobhunt",
-        description="Personal job-search agent. Finds and drafts; never submits.")
+        description="Personal job-search agent. Finds and drafts; never submits.",
+    )
     p.add_argument("--config", default="config.yaml")
     sub = p.add_subparsers(dest="cmd", required=True)
 
     sp = sub.add_parser("profile", help="turn a resume into profile.json")
-    sp.add_argument("--resume", required=True, help="path to a .pdf, .txt or .md resume")
+    sp.add_argument(
+        "--resume", required=True, help="path to a .pdf, .txt or .md resume"
+    )
     sp.add_argument("--out", default="profile.json")
     sp.set_defaults(func=cmd_profile)
 
     sr = sub.add_parser("run", help="run the daily pipeline")
     sr.add_argument("--mock", action="store_true", help="bundled fixtures, no network")
-    sr.add_argument("--scorer", choices=["llm", "keyword", "claude"], default="llm",
-                    help="keyword = offline stub, needs no API key ('claude' is an "
-                         "alias for 'llm', kept for older docs)")
+    sr.add_argument(
+        "--scorer",
+        choices=["llm", "keyword", "claude"],
+        default="llm",
+        help="keyword = offline stub, needs no API key ('claude' is an "
+        "alias for 'llm', kept for older docs)",
+    )
     sr.add_argument("--no-draft", action="store_true", help="skip the expensive stage")
     sr.add_argument("--send", action="store_true", help="actually email the digest")
     sr.add_argument("--limit", type=int, help="cap jobs sent to the LLM (cost guard)")

@@ -229,7 +229,7 @@ score_threshold: 6.0
 
 # Maximum recommended jobs per digest.
 max_per_digest: 6
-
+recheck_after_days: 7
 
 # ==============================================================
 # FILE PATHS
