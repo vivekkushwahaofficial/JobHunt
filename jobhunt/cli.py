@@ -127,7 +127,14 @@ def cmd_run(args) -> int:
     print("\n[2/5] filtering")
     jobs = prefilter(jobs, filters)
     passed_filters = len(jobs)
-    jobs = store.unseen(jobs)
+    recheck_after_days = int(
+    cfg.get("recheck_after_days", 7)
+)
+
+    jobs = store.unseen(
+    jobs,
+    recheck_after_days=recheck_after_days,
+)
     print(f"  new since last run: {len(jobs)}")
     candidates = len(jobs)
     if args.limit:
