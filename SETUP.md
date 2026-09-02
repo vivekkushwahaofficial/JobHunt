@@ -230,7 +230,7 @@ filters:
   allow_remote: true
   max_age_days: 30
 score_threshold: 7.0  # below this, no draft and no digest slot
-max_per_digest: 5
+max_per_digest: 6
 ```
 
 Two traps worth knowing:

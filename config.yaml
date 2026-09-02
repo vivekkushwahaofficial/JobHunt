@@ -228,7 +228,7 @@ draft_jd_chars: 6000
 score_threshold: 7.0
 
 # Maximum recommended jobs per digest.
-max_per_digest: 5
+max_per_digest: 6
 
 
 # ==============================================================
